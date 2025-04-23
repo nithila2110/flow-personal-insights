@@ -13,7 +13,6 @@ export default function Dashboard() {
     nextPeriodDate: "May 21, 2025",
   });
 
-  // Function to determine color based on cycle phase
   const getPhaseColor = () => {
     const phases: Record<string, string> = {
       "Follicular Phase": "bg-cycleflow-blue",
@@ -25,7 +24,6 @@ export default function Dashboard() {
     return phases[cycleData.phase] || "bg-cycleflow-lavender";
   };
   
-  // Navigate to recommendations pages
   const goToDietaryRecommendations = () => {
     navigate("/dietary-recommendations");
   };
@@ -37,7 +35,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-cycleflow-lavender to-white p-4 md:p-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl md:text-4xl font-bold text-center mb-8 text-primary">CycleFlow Dashboard</h1>
+        <h1 className="text-3xl md:text-4xl font-bold text-center mb-8 text-primary">Her Cycle Wellness Dashboard</h1>
 
         <div className="flex justify-end mb-4">
           <Button
@@ -50,7 +48,6 @@ export default function Dashboard() {
           </Button>
         </div>
 
-        {/* Cycle Status Card */}
         <Card className="mb-8 border-cycleflow-darkpurple shadow-md">
           <CardHeader className={`flex flex-row items-center justify-between ${getPhaseColor()} rounded-t-lg`}>
             <CardTitle className="text-xl">Your Cycle Status</CardTitle>
@@ -80,9 +77,7 @@ export default function Dashboard() {
           </CardContent>
         </Card>
         
-        {/* Recommendations Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-          {/* Dietary Recommendations */}
           <Card className="border-cycleflow-darkpurple hover:shadow-lg transition-shadow">
             <CardHeader className="bg-cycleflow-mint rounded-t-lg">
               <CardTitle className="text-xl">Dietary Recommendations</CardTitle>
@@ -109,7 +104,6 @@ export default function Dashboard() {
             </CardContent>
           </Card>
           
-          {/* Fitness Recommendations */}
           <Card className="border-cycleflow-darkpurple hover:shadow-lg transition-shadow">
             <CardHeader className="bg-cycleflow-blue rounded-t-lg">
               <CardTitle className="text-xl">Fitness Recommendations</CardTitle>
@@ -138,7 +132,6 @@ export default function Dashboard() {
         </div>
       </div>
       
-      {/* Chatbot */}
       <ChatBot />
     </div>
   );

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,7 +7,7 @@ import { Avatar } from "@/components/ui/avatar";
 export function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { id: 1, text: "Hi! I'm CycleMate, your personal assistant. How can I help you today?", isBot: true },
+    { id: 1, text: "Hi! I'm your Her Cycle Wellness assistant. How can I help you today?", isBot: true },
   ]);
   const [input, setInput] = useState("");
 
@@ -44,7 +43,7 @@ export function ChatBot() {
       {isOpen && (
         <Card className="w-80 sm:w-96 h-96 mb-4 flex flex-col shadow-lg border-2 border-cycleflow-darkpurple">
           <div className="p-3 bg-cycleflow-purple rounded-t-lg border-b">
-            <h3 className="font-semibold text-primary">CycleMate Chat</h3>
+            <h3 className="font-semibold text-primary">Her Cycle Wellness Assistant</h3>
           </div>
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.map(message => (
