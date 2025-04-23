@@ -28,6 +28,17 @@ export default {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
 				},
+				cycleflow: {
+					pink: '#FFDEE2',
+					purple: '#D6BCFA',
+					lavender: '#E5DEFF',
+					mint: '#F2FCE2',
+					peach: '#FDE1D3',
+					yellow: '#FEF7CD',
+					blue: '#D3E4FD',
+					magenta: '#D946EF',
+					darkpurple: '#9b87f5',
+				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
 					foreground: 'hsl(var(--secondary-foreground))'
