@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -13,6 +12,44 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+const dietaryPreferenceList = [
+  "Vegetarian",
+  "Vegan",
+  "Pescatarian",
+  "Eggetarian",
+  "Gluten-Free",
+  "Dairy-Free",
+  "Low FODMAP",
+  "Low Carb / Keto",
+  "Paleo",
+  "Ayurvedic",
+  "South Indian",
+  "North Indian",
+  "Jain",
+  "Halal",
+  "No Onion / No Garlic",
+  "Intermittent Fasting",
+  "No Preference"
+];
+
+const healthConditionList = [
+  "PCOS (Polycystic Ovary Syndrome)",
+  "Endometriosis",
+  "Thyroid (Hypothyroidism/Hyperthyroidism)",
+  "Anemia",
+  "Diabetes (Type 1 or 2)",
+  "Insulin Resistance",
+  "IBS (Irritable Bowel Syndrome)",
+  "Celiac Disease",
+  "Acne or Hormonal Skin Issues",
+  "PMS/PMDD (Premenstrual Syndrome / Dysphoric Disorder)",
+  "Migraines",
+  "Depression/Anxiety",
+  "Fibroids",
+  "Osteoporosis",
+  "None"
+];
+
 export function RegistrationForm() {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
@@ -26,7 +63,9 @@ export function RegistrationForm() {
     periodLength: "",
     cycleLength: "",
     dietaryPreferences: [] as string[],
+    dietaryOther: "",
     healthConditions: [] as string[],
+    healthOther: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -205,48 +244,58 @@ export function RegistrationForm() {
           )}
 
           {step === 3 && (
-            <div className="space-y-6">
+            <div className="space-y-8">
               <div>
                 <h3 className="text-lg font-medium mb-3">Dietary Preferences</h3>
-                <div className="grid grid-cols-2 gap-2">
-                  {["Vegetarian", "Vegan", "Gluten-Free", "Dairy-Free", "Low-Carb", "Keto"].map((preference) => (
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                  {dietaryPreferenceList.map((preference) => (
                     <div key={preference} className="flex items-center space-x-2">
                       <Checkbox 
                         id={`diet-${preference}`} 
                         checked={formData.dietaryPreferences.includes(preference)}
-                        onCheckedChange={(checked) => {
-                          if (checked) {
-                            handleCheckboxChange("dietaryPreferences", preference);
-                          } else {
-                            handleCheckboxChange("dietaryPreferences", preference);
-                          }
-                        }}
+                        onCheckedChange={() => handleCheckboxChange("dietaryPreferences", preference)}
                       />
-                      <Label htmlFor={`diet-${preference}`}>{preference}</Label>
+                      <Label htmlFor={`diet-${preference}`} className="cursor-pointer">{preference}</Label>
                     </div>
                   ))}
+                </div>
+                <div className="mt-3">
+                  <Label htmlFor="dietaryOther" className="block mb-1">Other (please specify)</Label>
+                  <Input
+                    id="dietaryOther"
+                    name="dietaryOther"
+                    value={formData.dietaryOther}
+                    onChange={handleChange}
+                    placeholder="Enter any unique dietary preference"
+                    className="mt-1"
+                  />
                 </div>
               </div>
               
               <div>
                 <h3 className="text-lg font-medium mb-3">Health Conditions (Optional)</h3>
-                <div className="grid grid-cols-2 gap-2">
-                  {["PCOS", "Endometriosis", "Fibroids", "Thyroid Issues", "Anemia", "Diabetes"].map((condition) => (
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                  {healthConditionList.map((condition) => (
                     <div key={condition} className="flex items-center space-x-2">
                       <Checkbox 
                         id={`health-${condition}`} 
                         checked={formData.healthConditions.includes(condition)}
-                        onCheckedChange={(checked) => {
-                          if (checked) {
-                            handleCheckboxChange("healthConditions", condition);
-                          } else {
-                            handleCheckboxChange("healthConditions", condition);
-                          }
-                        }}
+                        onCheckedChange={() => handleCheckboxChange("healthConditions", condition)}
                       />
-                      <Label htmlFor={`health-${condition}`}>{condition}</Label>
+                      <Label htmlFor={`health-${condition}`} className="cursor-pointer">{condition}</Label>
                     </div>
                   ))}
+                </div>
+                <div className="mt-3">
+                  <Label htmlFor="healthOther" className="block mb-1">Other (please specify)</Label>
+                  <Input
+                    id="healthOther"
+                    name="healthOther"
+                    value={formData.healthOther}
+                    onChange={handleChange}
+                    placeholder="Enter any other health condition"
+                    className="mt-1"
+                  />
                 </div>
               </div>
             </div>

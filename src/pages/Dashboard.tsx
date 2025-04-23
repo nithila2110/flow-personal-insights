@@ -1,9 +1,8 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ChatBot } from "@/components/ChatBot";
-import { Edit, ArrowRight } from "lucide-react";
+import { Edit, ArrowRight, HelpCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
@@ -39,7 +38,18 @@ export default function Dashboard() {
     <div className="min-h-screen bg-gradient-to-b from-cycleflow-lavender to-white p-4 md:p-8">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl md:text-4xl font-bold text-center mb-8 text-primary">CycleFlow Dashboard</h1>
-        
+
+        <div className="flex justify-end mb-4">
+          <Button
+            variant="outline"
+            className="flex items-center gap-2 border-cycleflow-darkpurple"
+            onClick={() => navigate("/healthcare-assistant")}
+          >
+            <HelpCircle className="h-5 w-5 text-primary" />
+            Talk with our healthcare assistant
+          </Button>
+        </div>
+
         {/* Cycle Status Card */}
         <Card className="mb-8 border-cycleflow-darkpurple shadow-md">
           <CardHeader className={`flex flex-row items-center justify-between ${getPhaseColor()} rounded-t-lg`}>
