@@ -91,7 +91,7 @@ export function RegistrationForm() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-cycleflow-lavender to-white p-4">
       <Card className="w-full max-w-md shadow-lg border-cycleflow-darkpurple">
         <CardHeader className="bg-cycleflow-purple rounded-t-lg">
-          <CardTitle className="text-2xl text-center">CycleFlow</CardTitle>
+          <CardTitle className="text-2xl text-center">Her Cycle Wellness</CardTitle>
           <CardDescription className="text-center">
             {step === 1 && "Let's get to know you"}
             {step === 2 && "Track your cycle"}
