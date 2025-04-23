@@ -13,41 +13,19 @@ import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const dietaryPreferenceList = [
-  "Vegetarian",
-  "Vegan",
-  "Pescatarian",
-  "Eggetarian",
-  "Gluten-Free",
-  "Dairy-Free",
-  "Low FODMAP",
-  "Low Carb / Keto",
-  "Paleo",
-  "Ayurvedic",
-  "South Indian",
-  "North Indian",
-  "Jain",
-  "Halal",
-  "No Onion / No Garlic",
-  "Intermittent Fasting",
+  "Vegetarian", "Vegan", "Pescatarian", "Eggetarian",
+  "Gluten-Free", "Dairy-Free", "Low FODMAP", "Low Carb / Keto",
+  "Paleo", "Ayurvedic", "South Indian", "North Indian",
+  "Jain", "Halal", "No Onion / No Garlic", "Intermittent Fasting",
   "No Preference"
 ];
 
 const healthConditionList = [
-  "PCOS (Polycystic Ovary Syndrome)",
-  "Endometriosis",
-  "Thyroid (Hypothyroidism/Hyperthyroidism)",
-  "Anemia",
-  "Diabetes (Type 1 or 2)",
-  "Insulin Resistance",
-  "IBS (Irritable Bowel Syndrome)",
-  "Celiac Disease",
-  "Acne or Hormonal Skin Issues",
-  "PMS/PMDD (Premenstrual Syndrome / Dysphoric Disorder)",
-  "Migraines",
-  "Depression/Anxiety",
-  "Fibroids",
-  "Osteoporosis",
-  "None"
+  "PCOS (Polycystic Ovary Syndrome)", "Endometriosis", "Thyroid (Hypothyroidism/Hyperthyroidism)",
+  "Anemia", "Diabetes (Type 1 or 2)", "Insulin Resistance",
+  "IBS (Irritable Bowel Syndrome)", "Celiac Disease",
+  "Acne or Hormonal Skin Issues", "PMS/PMDD (Premenstrual Syndrome / Dysphoric Disorder)",
+  "Migraines", "Depression/Anxiety", "Fibroids", "Osteoporosis", "None"
 ];
 
 export function RegistrationForm() {
@@ -90,7 +68,6 @@ export function RegistrationForm() {
       const newValues = currentValues.includes(value)
         ? currentValues.filter((item) => item !== value)
         : [...currentValues, value];
-      
       return { ...prev, [category]: newValues };
     });
   };
@@ -135,7 +112,6 @@ export function RegistrationForm() {
                   className="mt-1"
                 />
               </div>
-              
               <div>
                 <Label htmlFor="age">Age</Label>
                 <Select onValueChange={(value) => handleSelectChange("age", value)}>
@@ -151,7 +127,6 @@ export function RegistrationForm() {
                   </SelectContent>
                 </Select>
               </div>
-              
               <div>
                 <Label htmlFor="gender">Gender (Optional)</Label>
                 <Select onValueChange={(value) => handleSelectChange("gender", value)}>
@@ -165,7 +140,6 @@ export function RegistrationForm() {
                   </SelectContent>
                 </Select>
               </div>
-              
               <div>
                 <Label htmlFor="location">Location (Optional)</Label>
                 <Input
@@ -208,7 +182,6 @@ export function RegistrationForm() {
                   </PopoverContent>
                 </Popover>
               </div>
-              
               <div>
                 <Label htmlFor="periodLength">How Long Did Your Period Last?</Label>
                 <Select onValueChange={(value) => handleSelectChange("periodLength", value)}>
@@ -224,7 +197,6 @@ export function RegistrationForm() {
                   </SelectContent>
                 </Select>
               </div>
-              
               <div>
                 <Label htmlFor="cycleLength">Usual Cycle Length</Label>
                 <Select onValueChange={(value) => handleSelectChange("cycleLength", value)}>
@@ -247,20 +219,33 @@ export function RegistrationForm() {
             <div className="space-y-8">
               <div>
                 <h3 className="text-lg font-medium mb-3">Dietary Preferences</h3>
-                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                <div className="max-h-44 overflow-y-auto rounded-md border border-muted mb-3 bg-cycleflow-lavender/40 px-2 py-2
+                  grid grid-cols-2 sm:grid-cols-3 gap-2 custom-scroll">
                   {dietaryPreferenceList.map((preference) => (
-                    <div key={preference} className="flex items-center space-x-2">
-                      <Checkbox 
-                        id={`diet-${preference}`} 
+                    <button
+                      key={preference}
+                      type="button"
+                      onClick={() => handleCheckboxChange("dietaryPreferences", preference)}
+                      className={cn(
+                        "flex items-center space-x-2 px-2 py-2 rounded transition-all w-full text-left hover:bg-cycleflow-purple/30 focus:outline-none",
+                        formData.dietaryPreferences.includes(preference)
+                          ? "bg-cycleflow-purple/90 text-primary font-bold shadow"
+                          : "bg-white/0 text-gray-800"
+                      )}
+                    >
+                      <Checkbox
+                        id={`diet-${preference}`}
                         checked={formData.dietaryPreferences.includes(preference)}
+                        tabIndex={-1}
                         onCheckedChange={() => handleCheckboxChange("dietaryPreferences", preference)}
+                        className="border-cycleflow-darkpurple data-[state=checked]:bg-cycleflow-darkpurple"
                       />
-                      <Label htmlFor={`diet-${preference}`} className="cursor-pointer">{preference}</Label>
-                    </div>
+                      <Label htmlFor={`diet-${preference}`} className="cursor-pointer text-sm">{preference}</Label>
+                    </button>
                   ))}
                 </div>
-                <div className="mt-3">
-                  <Label htmlFor="dietaryOther" className="block mb-1">Other (please specify)</Label>
+                <div className="mt-2">
+                  <Label htmlFor="dietaryOther" className="block mb-1 font-medium text-sm">Other (please specify)</Label>
                   <Input
                     id="dietaryOther"
                     name="dietaryOther"
@@ -271,23 +256,35 @@ export function RegistrationForm() {
                   />
                 </div>
               </div>
-              
               <div>
-                <h3 className="text-lg font-medium mb-3">Health Conditions (Optional)</h3>
-                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                <h3 className="text-lg font-medium mb-3">Health Conditions <span className="text-gray-500 text-xs">(Optional)</span></h3>
+                <div className="max-h-44 overflow-y-auto rounded-md border border-muted mb-3 bg-cycleflow-lavender/40 px-2 py-2
+                  grid grid-cols-2 sm:grid-cols-3 gap-2 custom-scroll">
                   {healthConditionList.map((condition) => (
-                    <div key={condition} className="flex items-center space-x-2">
-                      <Checkbox 
-                        id={`health-${condition}`} 
+                    <button
+                      key={condition}
+                      type="button"
+                      onClick={() => handleCheckboxChange("healthConditions", condition)}
+                      className={cn(
+                        "flex items-center space-x-2 px-2 py-2 rounded transition-all w-full text-left hover:bg-cycleflow-purple/30 focus:outline-none",
+                        formData.healthConditions.includes(condition)
+                          ? "bg-cycleflow-purple/90 text-primary font-bold shadow"
+                          : "bg-white/0 text-gray-800"
+                      )}
+                    >
+                      <Checkbox
+                        id={`health-${condition}`}
                         checked={formData.healthConditions.includes(condition)}
+                        tabIndex={-1}
                         onCheckedChange={() => handleCheckboxChange("healthConditions", condition)}
+                        className="border-cycleflow-darkpurple data-[state=checked]:bg-cycleflow-darkpurple"
                       />
-                      <Label htmlFor={`health-${condition}`} className="cursor-pointer">{condition}</Label>
-                    </div>
+                      <Label htmlFor={`health-${condition}`} className="cursor-pointer text-sm">{condition}</Label>
+                    </button>
                   ))}
                 </div>
-                <div className="mt-3">
-                  <Label htmlFor="healthOther" className="block mb-1">Other (please specify)</Label>
+                <div className="mt-2">
+                  <Label htmlFor="healthOther" className="block mb-1 font-medium text-sm">Other (please specify)</Label>
                   <Input
                     id="healthOther"
                     name="healthOther"
@@ -301,7 +298,6 @@ export function RegistrationForm() {
             </div>
           )}
         </CardContent>
-        
         <CardFooter className="flex justify-between">
           {step > 1 ? (
             <Button variant="outline" onClick={prevStep}>
@@ -310,7 +306,7 @@ export function RegistrationForm() {
           ) : (
             <div></div>
           )}
-          
+
           <Button 
             onClick={nextStep}
             className="bg-cycleflow-darkpurple hover:bg-primary"
@@ -319,6 +315,18 @@ export function RegistrationForm() {
           </Button>
         </CardFooter>
       </Card>
+      <style>{`
+        .custom-scroll::-webkit-scrollbar {
+          width: 8px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+          background: #d6bcfa;
+          border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+          background: rgba(230,217,255,0.2);
+        }
+      `}</style>
     </div>
   );
 }
