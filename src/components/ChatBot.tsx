@@ -9,6 +9,12 @@ export function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     { id: 1, text: "Hi! I'm CycleMate, your personal assistant. How can I help you today?", isBot: true },
+    { id: 2, text: "Can you tell me what to eat during my luteal phase?", isBot: false },
+    { id: 3, text: "During your luteal phase, I recommend magnesium-rich foods like spinach and dark chocolate. Want me to show you some recipes?", isBot: true },
+    { id: 4, text: "I'm feeling tired on my period.", isBot: false },
+    { id: 5, text: "It's totally normal to feel low energy during your period. I suggest gentle exercises like yoga or a light walk. Need a workout routine?", isBot: true },
+    { id: 6, text: "How do I track my cycle?", isBot: false },
+    { id: 7, text: "You can track your cycle right from your dashboard! Just enter the first day of your period and cycle length. Let me know if you need help with that.", isBot: true }
   ]);
   const [input, setInput] = useState("");
 
@@ -34,7 +40,7 @@ export function ChatBot() {
       } else if (input.toLowerCase().includes("track") && input.toLowerCase().includes("cycle")) {
         response = "You can track your cycle right from your dashboard! Just enter the first day of your period and cycle length. Let me know if you need help with that.";
       }
-      
+
       setMessages(prev => [...prev, { id: Date.now(), text: response, isBot: true }]);
     }, 1000);
   };
@@ -98,3 +104,4 @@ export function ChatBot() {
     </div>
   );
 }
+
